@@ -82,11 +82,6 @@ variable "image_repo" {
     default = "openziti/ziti-controller"
 }
 
-variable "admin_image_repo" {
-    description = "debug value for alternative admin container image repo"
-    default = "openziti/ziti-cli"
-}
-
 variable "image_tag" {
     description = "debug value for container image tag"
     default = ""
