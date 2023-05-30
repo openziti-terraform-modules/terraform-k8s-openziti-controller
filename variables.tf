@@ -7,6 +7,11 @@ variable "ziti_namespace" {
     description = "K8s namespace where OpenZiti Controller is installed"
 }
 
+variable "create_namespace" {
+    default = true
+    description = "create the namespace if it doesn't exist"
+}
+
 variable "ziti_charts" {
     description = "Filesystem path to source OpenZiti Helm Charts instead of Helm repo"
     type = string
@@ -37,6 +42,12 @@ variable "client_port" {
     default     = 443
 }
 
+variable "mgmt_ingress_enabled" {
+    description = "enable ingress for the Ziti Edge Management API"
+    default = true
+    type = bool
+}
+
 variable "mgmt_domain_name" {
     description = "The subdomain name to use for Ziti Edge Management API. This is identical to Client API if the Management API cluster service is disabled."
     default = "management"
@@ -45,6 +56,11 @@ variable "mgmt_domain_name" {
 variable "mgmt_port" {
     description = "Ziti Edge mgmt API port used by ziti CLI and console"
     default     = 443
+}
+
+variable "ingress_class" {
+    description = "ingress class name to trigger ingress controller"
+    default = "nginx"
 }
 
 variable "install" {
