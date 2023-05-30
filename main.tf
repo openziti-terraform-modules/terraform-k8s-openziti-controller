@@ -1,24 +1,22 @@
 resource "helm_release" "ziti_controller" {
     count            = var.install == true ? 1 : 0  # install unless false
     namespace        = var.ziti_namespace
+    create_namespace = var.create_namespace
     name             = var.ziti_controller_release
-    version          = "~> 0.2"
+    version          = "~> 0.4"
     repository       = "https://openziti.github.io/helm-charts"
     chart            = var.ziti_charts != "" ? "${var.ziti_charts}/ziti-controller" : "ziti-controller"
     values           = [yamlencode(merge({
         image = {
             repository = var.image_repo
             tag = var.image_tag
-            admin = {
-                repository = var.admin_image_repo
-            }
         }
         clientApi = {
             advertisedHost = "${var.client_domain_name}.${var.dns_zone}"
             advertisedPort = 443
             ingress = {
                 enabled = true
-                ingressClassName = "nginx"
+                ingressClassName = var.ingress_class
                 annotations = var.ingress_annotations
             }
             service = {
@@ -31,7 +29,7 @@ resource "helm_release" "ziti_controller" {
             advertisedPort = 443
             ingress = {
                 enabled = true
-                ingressClassName = "nginx"
+                ingressClassName = var.ingress_class
                 annotations = var.ingress_annotations
             }
             service = {
@@ -50,8 +48,8 @@ resource "helm_release" "ziti_controller" {
             advertisedPort = 443
             dnsNames = [var.mgmt_dns_san]
             ingress = {
-                enabled = true
-                ingressClassName = "nginx"
+                enabled = var.mgmt_ingress_enabled
+                ingressClassName = var.ingress_class
                 annotations = var.ingress_annotations
             }
             service = {
