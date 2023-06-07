@@ -107,3 +107,13 @@ variable "values" {
     description = "additional Helm chart values override any other values"
     default = {}
 }
+
+variable "chart_version" {
+    description = "Helm chart version"
+    default = "~> 0.4"
+}
+
+variable "chart_repo" {
+    description = "Helm chart repository"
+    default = "https://openziti.github.io/helm-charts"
+}
