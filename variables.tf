@@ -117,3 +117,20 @@ variable "chart_repo" {
     description = "Helm chart repository"
     default = "https://openziti.github.io/helm-charts"
 }
+
+variable "helm_release_wait" {
+    description = "wait for Helm release to be ready"
+    default = true
+    type = bool
+}
+
+variable "helm_release_wait_for_jobs" {
+    description = "wait for Helm release jobs to complete"
+    default = true
+    type = bool
+}
+
+variable "helm_release_timeout" {
+    description = "timeout for Helm release to be ready"
+    default = "600s"
+}

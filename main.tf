@@ -6,6 +6,9 @@ resource "helm_release" "ziti_controller" {
     version          = var.chart_version
     repository       = var.chart_repo
     chart            = var.ziti_charts != "" ? "${var.ziti_charts}/ziti-controller" : "ziti-controller"
+    wait             = var.helm_release_wait
+    wait_for_jobs    = var.helm_release_wait_for_jobs
+    timeout          = var.helm_release_timeout
     values           = [yamlencode(merge({
         image = {
             repository = var.image_repo
