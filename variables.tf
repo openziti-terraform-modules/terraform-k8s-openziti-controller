@@ -132,5 +132,6 @@ variable "helm_release_wait_for_jobs" {
 
 variable "helm_release_timeout" {
     description = "timeout for Helm release to be ready"
-    default = "600s"
+    default = 600
+    type = number
 }
